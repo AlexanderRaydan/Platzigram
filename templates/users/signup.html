@@ -1,0 +1,98 @@
+
+{% extends "users/base.html" %}
+
+{% block head_content %}
+    <title>Platzigram Sign in</title>
+{% endblock %}
+
+{% block container %}
+
+    {% if error %}
+        <p class="alert alert-danger">{{error}}</p>
+    {% endif %}
+
+    <form method="POST" action="{% url "signup" %}">
+
+        {% csrf_token %}<!-- TOKEN DE SEGURIDAD -->
+        
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    
+                    {% for error in form.errors%}
+                        <strong>{{form.errors}}</strong>
+
+                    {% endfor %}
+                </div>
+            {% endif %}
+        
+        {% for field in form.declared_fields %}
+
+            {% if field == 'password' or field == 'password_confirmation' %}
+            <div class="form-group">
+                <input class="form-control {% if form.field.errors %} is-invalid {% endif %}"
+                    type="password"
+                    placeholder="{{field}}"
+                    name="{{field}}" 
+                    required= "true"
+                    value="{% if form.errors %}{{form.field.value}}{% else %}{{ profile.field }}{% endif %}"
+                    >
+            </div>  
+            
+            {% else %}
+
+            <div class="form-group">
+                <input class="form-control {% if form.field.errors %}is-invalid{% endif %}"
+                    type="text"
+                    placeholder="{{field}}"
+                    name="{{field}}" 
+                    required= "true"
+                    value="{% if form.errors %}{{form.field.value}}{% else %}{{ profile.field }}{% endif %}"
+                    >
+            </div>
+
+            {% endif %}
+
+        {% endfor %}
+      <!----  <div class="form-group">
+                    <input class="form-control {% if form.username.errors %}is-invalid{% endif %}"
+                        type="text"
+                        placeholder="Username"
+                        name="username" 
+                        required= "true"
+                        value="{% if form.username.errors %}{{form.username.value}}{% else %}{{ profile.username }}{% endif %}"
+                        >
+                </div>        
+        <div class="invalid-feedback">
+
+            {% for error in form.website.errors %}
+                {{error}}
+            {% endfor %}
+
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="password" placeholder="Password" name="password" required= "true">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="password" placeholder="Password Confirmation" name="password_confirmation" required= "true">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="text" placeholder="First name" name="first_name" required= "true">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="text" placeholder="Last name" name="last_name" required= "true">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" type="email" placeholder="Email Adress" name="email" required= "true">
+        </div>-->
+
+        <!--{{form.as_p}}-->        
+        <button type="submit" class="btn btn-primary btn-block mt5">Register!</button>
+
+    </form>
+
+{% endblock %}

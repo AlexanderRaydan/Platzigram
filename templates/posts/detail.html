@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block head_content %}
+<title>@{{ user.username }} | Platzigram</title>
+{% endblock %}
+
+{% block container %}
+
+    <br>
+
+        {% include "posts/post_card.html" %}
+
+    <br>
+
+{% endblock %}
